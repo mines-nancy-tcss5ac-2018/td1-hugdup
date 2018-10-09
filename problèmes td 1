@@ -1,0 +1,93 @@
+Hugues du Pontavice
+def sum(a):
+    '''int-->int renvoie la somme des chifres d'un nombre'''
+    s=0
+    while a>0:
+        s=s+a%10
+        a=a//10
+    return(s)
+
+#tests
+assert(sum(2**15)==26)
+print(sum(2**1000))
+
+
+
+
+def miroir (n):
+    '''int-->int'''
+    L=[]
+    while n>0:
+        L.append(n%10)
+        n=n//10    
+    b=0
+    for i in range (0,len(L)):
+        b=b+L[len(L)-i-1]*10**i
+  
+    return b #on a le miroir
+
+
+def lychrel(n):
+    '''int-->int renvoie si n est un lychrel avant 50 it�rations'''
+    nbreite=1
+    while nbreite<=50:
+        n=n+miroir(n)
+        if miroir(n)==n:
+            return nbreite
+        nbreite=1+nbreite
+    return -1
+        
+    
+def nbrelychrel(n):
+    '''int-->int renvoie le nbre de lychrel'''
+    nbrelychrel=0
+    for i in range (0,n):
+        if lychrel(i)==-1 :
+            nbrelychrel+=1
+    return(nbrelychrel)
+            
+assert(lychrel(349)==3)
+print(nbrelychrel(10000))
+
+##probleme22
+f=open('noms.txt','r')
+def tri():
+    f=open("p022.txt")
+    for ligne in f:
+        l=sorted(ligne.split(","),key=str.upper)
+    return l
+def nombre(l):
+    L=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    B=[]
+    P=[]
+    for k in l:
+        B=[]
+        for i in k:
+            for j in L:
+                if j==i:
+                    a=L.index(j)+1
+                    B.append(a)
+        a=sum(B)
+        P=P+[a]
+    return P
+assert nombre(['COLIN'])==[53]
+
+def sum(l):
+    s=0
+    for i in l:
+        s=s+i
+    return s
+
+l=tri()
+def solve(c):
+    P=[]
+    M=nombre(c)
+    for k in range(len(M)):
+        a=k+1
+        P.append(a*M[k])
+    return sum(P)
+
+
+
+
+assert solve(l)==871198282
